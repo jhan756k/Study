@@ -30,6 +30,7 @@ public class Unit2 {
         \ --> escape sequence
         \", \\, \n --> ", \, new line
 
+
         Java Quick Reference (JQR)
 
         -- IndexOf --
@@ -55,6 +56,7 @@ public class Unit2 {
         "monkey".compareTo("monkey") --> 0
         "monkey".compareTo("monkeys") --> -1
 
+
         Integer is a wrapper class, int is a primitive type
 
         intValue(), doubleValue(), ... --> return the value of primitive data type of the wrapper class
@@ -63,8 +65,25 @@ public class Unit2 {
         double d2 = d.doubleValue();
         System.out.println(d2);
 
+
         AutoBoxing & Unboxing
         
+        int num = 157;
+        Integer num2 = num; --> AutoBoxing
+        int num3 = num2; --> Unboxing
+        int sum = num + num2; --> Unboxing
+
+        Math Class
+        - Methods are static
+
+        1. int abs (int x)
+        2. double abs (double x)
+        3. double pow (double x, double y) --> x^y
+        4. double sqrt (double x)
+        5. double random ()
+
+        (int)(Math.random()*51) + 50; --> 50 ~ 100 inclusive
+        (int)(Math.random()*101) --> 0 ~ 100 inclusive
         */
     }
 }
