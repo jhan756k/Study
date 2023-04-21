@@ -1,6 +1,8 @@
 public class Unit1 {
     public static void main(String[] args) {
         /*
+        1. PRIMITIVE TYPES
+
         Constants - UPPERCASE_UNDERSCORE
         final double PI;
 

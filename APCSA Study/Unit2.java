@@ -1,6 +1,8 @@
 public class Unit2 {
     public static void main(String[] args) {
         /*
+        2. USING OBJECTS
+
         Objects and Classes
 
         Class - blueprint for objects

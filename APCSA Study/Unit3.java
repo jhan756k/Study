@@ -1,8 +1,9 @@
 public class Unit3 {
     public static void main(String[] args) {
         /*
-        JAVA DOESN'T CARE ABOUT INDENTATION
+        3. BOOLEAN EXPRESSIONS AND IF STATEMENTS
 
+        JAVA DOESN'T CARE ABOUT INDENTATION
 
         -- DANGLING ELSE --
         if (a > 20)
