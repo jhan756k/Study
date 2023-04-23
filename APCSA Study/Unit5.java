@@ -47,6 +47,14 @@ public class Unit5 {
         toString method 
         - returns a string representation of the object
 
+        Mutator Methods
+        - set methods
+        - must be public
+        - return type is void
+        - camelCase
+        - parameter type should match instance variable type
+        
+        
         Look at Code below!
         */
     }
