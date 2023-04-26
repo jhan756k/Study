@@ -54,7 +54,25 @@ public class Unit5 {
         - camelCase
         - parameter type should match instance variable type
         
+        Method Header
+        - Access Level (public/private)
+        - Ownership (static/non-static) static - class owns method non-static - individual object owns method
+        - Return Type (void, int, double, String, boolean, etc.)
+        - Identifier (name of method)
+        - Parameters (type and name of parameters)
         
+        Static methods can only access static variables
+        Non-static methods can access static and non-static variables
+
+        Local variables can be declared in the body of constructor or method
+
+        This keyword
+        - can be used to refer to methods of a class --> optional
+        - specify the object being constructed
+        - this as object parameter
+
+        
+
         Look at Code below!
         */
     }
@@ -109,6 +127,12 @@ public class Unit5 {
         public String toString(){ 
             // This is printed
             return "Name: " + this.name + " Calories: " + this.calories;
+        }
+
+        public boolean isSameName(Snack other){
+            return(getName().equals(other.name));
+            // Snack class 내부이므로 getName()도 되고 
+            // private 변수 직접 접근 가능
         }
     }
 }
