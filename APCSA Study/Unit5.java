@@ -71,8 +71,6 @@ public class Unit5 {
         - specify the object being constructed
         - this as object parameter
 
-        
-
         Look at Code below!
         */
     }
