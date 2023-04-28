@@ -14,7 +14,34 @@ public class Unit7 {
         Arraylists can only store objects, so Wrapper classes are a workaround.
 
         new ArrayList<E>(); where E is object type
+
+
+        -- ArrayList Methods -- 
+
+        .size() --> returns the size of the arraylist
+        .add(E) --> adds an element to the end of the arraylist (returns true)
+        .add(int index, E) --> adds an element to the specified index (max_index+1 still works since it means adding E to the end, returns true)
+        .remove(int index) --> removes the element at the specified index (returns removed element)
+        .set(int index, E) --> replaces the element at the specified index with E (returns former element of index)
+        .get(int index) --> returns the element at the specified index
+
+
+        -- ArrayList Methods (Wrapper Classes) --
+
+        When passing ArrayList as a parameter, you should specify the type of object it stores. ( public static void m(ArrayList<Integer> arr) )
+        When not specified (ArrayList arr), the program can change the values into a different type of object that the ArrayList was not intialized with. (ex: ["hello", 0, 1, 2])
+        ==> It doesn't cause a error, which is problematic.
+
+        When returning ArrayList, if cases like above (different objects in one ArrayList) happens, an error will occur. 
+        That's why you need to specify the type of object in both the parameter and return type.
+
+        ==> ArrayList<E> is more preferred than ArrayList (without specifying the type of object) since it prevents errors.
+
+
+        While traversing and removing elements, start from the end of the ArrayList and end at the start.
+        
+        Enhanced for loops make a copy of each entry. Therefore, changing values in a for-each loop does not change the values in the ArrayList.
+        Also, you cannot update the ArrayList in a for-each loop. (ex: remove elements)
         */
-        ArrayList<Boolean> lo = new ArrayList<Boolean>();
     }
 }
