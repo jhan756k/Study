@@ -7,7 +7,21 @@ public class Unit6 {
         Array length --> arr.length
         String legth --> str.length()
         
-        0 1 2 3 4
+        Enhanced for loop (each loop)
+        for (Snack n : snacks) {
+            System.out.println(n.getCalories());
+        }
+
+        Integer max value : Integer.MAX_VALUE
+        Array left shift, right shift
         */
+        int []x = {1, 2, 3, 4, 5};
+        int shift = 3;
+        int []y = new int[x.length];
+        
+        for (int i=0; i<x.length; i++){
+            int place = (i + shift)%x.length;
+            y[place] = x[i];
+        }
     }
 }
