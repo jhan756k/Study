@@ -42,6 +42,53 @@ public class Unit7 {
         
         Enhanced for loops make a copy of each entry. Therefore, changing values in a for-each loop does not change the values in the ArrayList.
         Also, you cannot update the ArrayList in a for-each loop. (ex: remove elements)
+
+
+        -- Searching --
+        int --> ==
+        double --> Math.abs(a-b) < delta
+        object --> .equals()
+
+        -- Sorting --
+        1. Selection Sort
+        2. Insertion Sort
+        
+        Why is Insertion Sort better than Selection Sort?
+        --> It provides sorted list up to that point even if the program was terminated during the sorting process.
+        Both have O(n^2) time complexity.
+
+        int identifier = fullName.hashCode(); --> hashCode is a Object class method that returns a unique integer for each object.
         */
+
+        // Selection Sort
+        int []arr = {5, 4, 3, 2, 1};
+
+        for (int outerLoop = 0; outerLoop < arr.length; outerLoop++) {
+            int minIndex = outerLoop;
+            for (int inner = outerLoop + 1; inner < arr.length; inner++) {
+                if (arr[inner] < arr[minIndex]) {
+                    minIndex = inner;
+                }
+            }
+            if (minIndex != outerLoop) {
+                swapItems(minIndex, outerLoop, arr);
+            }
+        }
+
+        // Insertion Sort
+        for (int outerLoop = 1; outerLoop < arr.size(); outerLoop++) {
+            int innerLoop = outerLoop-1;
+            while (innerLoop > 0 && arr[innerLoop] < arr[innerLoop - 1]) {
+                swapItems(innerLoop, innerLoop - 1, arr);
+                innerLoop--;
+            }
+        }
+
+    }
+
+    private void swapItems(int index1, int index2, Object[] arr) {
+        Object thirdHand = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = thirdHand;
     }
 }

@@ -54,9 +54,10 @@ public class Unit2 {
         "monkey".equals("monkey") --> true
 
         -- CompareTo --
-        https://mine-it-record.tistory.com/133
         "monkey".compareTo("monkey") --> 0
         "monkey".compareTo("monkeys") --> -1
+        1. number - bigger(1) equals(0) smaller(-1) (4.compareTo(3) --> 1)
+        2. string - https://mine-it-record.tistory.com/133
 
 
         Integer is a wrapper class, int is a primitive type
