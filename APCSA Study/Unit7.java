@@ -79,7 +79,7 @@ public class Unit7 {
         for (int outerLoop = 1; outerLoop < arr.size(); outerLoop++) {
             int innerLoop = outerLoop-1;
             while (innerLoop > 0 && arr[innerLoop] < arr[innerLoop - 1]) {
-                swapItems(innerLoop, innerLoop - 1, arr);
+                swapItems(innerLoop, outerLoop, args);(innerLoop, innerLoop - 1, arr);
                 innerLoop--;
             }
         }
