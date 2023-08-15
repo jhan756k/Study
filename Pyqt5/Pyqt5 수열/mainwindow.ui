@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>560</width>
+    <height>890</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>560</width>
+    <height>890</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>560</width>
+    <height>890</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>NanumGothic</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>501</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="horizontalSpacing">
+      <number>100</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>60</number>
+     </property>
+     <item row="2" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <family>NanumGothic</family>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;
+background: #D3D3D3;
+</string>
+         </property>
+         <property name="text">
+          <string>등차값</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="font">
+          <font>
+           <family>NanumGothic</family>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;
+background: #D3D3D3;
+</string>
+         </property>
+         <property name="text">
+          <string>등비값</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <widget class="QTextEdit" name="textEdit">
+       <property name="font">
+        <font>
+         <family>NanumGothic</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="textEdit_2">
+       <property name="font">
+        <font>
+         <family>NanumGothic</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QTextEdit" name="textEdit_3">
+       <property name="font">
+        <font>
+         <family>NanumGothic</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>270</y>
+      <width>241</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>NanumGothic</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid red;
+background: #D3D3D3;
+</string>
+    </property>
+    <property name="text">
+     <string>리셋</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>270</y>
+      <width>241</width>
+      <height>69</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-top-left-radius :10px;
+border-top-right-radius : 10px;
+border-bottom-left-radius : 10px; 
+border-bottom-right-radius : 10px;
+border :3px solid gray;
+
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
