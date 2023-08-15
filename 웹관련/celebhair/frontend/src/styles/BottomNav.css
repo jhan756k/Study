@@ -1,0 +1,27 @@
+.bottom-nav {
+  border-radius: 0px;
+  background-color: #2b2b2b;
+  display: grid;
+  color: white;
+  justify-items: center;
+  margin-bottom: 0px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.links {
+  display: flex;
+}
+.fb {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+p{
+  margin-top: 0px;
+  margin-bottom: 7px;
+}
+h1 {
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
