@@ -1,6 +1,6 @@
 const express = require("express");
 const http = require("http");
-const ws = require("ws");
+const SocketIO = require("socket.io");
 
 const app = express();
 app.set("view engine", "pug");
@@ -13,28 +13,24 @@ app.get("/*", (req, res) => {
   res.redirect("/");
 });
 
-const server = http.createServer(app);
-const wss = new ws.Server({ server });
+const httpServer = http.createServer(app);
+const wsServer = SocketIO(httpServer);
 
-const sockets = [];
-
-wss.on("connection", (socket) => {
-  sockets.push(socket);
-  socket["nickname"] = "Anon";
-  console.log("Connected to Browser ✅");
-  socket.on("close", () => console.log("Disconnected from the Browser ❌"));
-  socket.on("message", (message) => {
-    const parsed = JSON.parse(message);
-    switch (parsed.type) {
-      case "new_message":
-        sockets.forEach((aSocket) =>
-          aSocket.send(`${socket.nickname}: ${parsed.payload}`)
-        );
-        break;
-      case "nickname":
-        socket["nickname"] = parsed.payload;
-        break;
-    }
+wsServer.on("connection", (socket) => {
+  socket.on("enter_room", (roomName, showRoom) => {
+    socket.join(roomName);
+    showRoom();
+    socket.to(roomName).emit("welcome");
+  });
+  socket.on("disconnecting", () => {
+    socket.rooms.forEach((room) => socket.to(room).emit("bye"));
+  });
+  socket.on("new_message", (msg, room, done) => {
+    socket.to(room).emit("new_message", msg);
+    done();
   });
 });
-server.listen(3000, () => console.log(`Listening on http://localhost:3000`));
+
+httpServer.listen(3000, () =>
+  console.log(`Listening on http://localhost:3000`)
+);
