@@ -1,4 +1,4 @@
-class Test {
+public class JaggedArray {
     public static void main(String[] args) {
         int[][] b = new int[4][];
         b[0] = new int[] { 1 };
