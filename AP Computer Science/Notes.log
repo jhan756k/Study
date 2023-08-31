@@ -360,29 +360,6 @@ Package hyperref Info: Link coloring ON on input line 44.
 \everyMPtoPDFconversion=\toks28
 ) [1
 
-{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 104.
- [2] [3] (./Notes.aux)
- ***********
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-11>
- ***********
-Package rerunfilecheck Info: File `Notes.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
- ) 
-Here is how much of TeX's memory you used:
- 11321 strings out of 475189
- 168640 string characters out of 5767835
- 1989248 words of memory out of 5000000
- 32418 multiletter control sequences out of 15000+600000
- 577046 words of font info for 102 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 75i,6n,79p,319b,1113s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmac.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmad.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmae.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb1.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb2.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb3.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb4.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmb9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmbb.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmbc.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmbd.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc0.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc1.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc2.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc7.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmc9.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcc.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcd.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmce.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmcf.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd0.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd1.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd5.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/nanumtype1/nanummjmd6.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb>
-Output written on Notes.pdf (3 pages, 1345256 bytes).
-PDF statistics:
- 253 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
- 44 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+{c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+!pdfTeX error: pdflatex.exe (file c:/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map): fflush() failed (Invalid argument)
+ ==> Fatal error occurred, no output PDF file produced!

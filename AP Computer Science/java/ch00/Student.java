@@ -20,6 +20,18 @@ public class Student {
         myGrades = new float[]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     }
 
+    public void setAge(int age) {
+        myAge = age;
+    }
+
+    public void setName(String name) {
+        myName = name;
+    }
+
+    public void setHeight(float height) {
+        myHeight = height;
+    }
+
     public String getGrade() {
         String gString = "";
         for (int i = 0; i < 5; i++) {
