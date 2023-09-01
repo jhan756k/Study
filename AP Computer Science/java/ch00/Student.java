@@ -17,7 +17,7 @@ public class Student {
     }
 
     {
-        myGrades = new float[]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+        myGrades = new float[]{0.0f, 0.0f, 0.0f};
     }
 
     public void setAge(int age) {
@@ -34,7 +34,7 @@ public class Student {
 
     public String getGrade() {
         String gString = "";
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < myGrades.length; i++) {
             gString += myGrades[i] + " ";
         }
         return gString;
@@ -54,12 +54,12 @@ public class Student {
 
     public void addGrade(float grade) {
         boolean isAdded = false;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < myGrades.length; i++) {
             if (myGrades[i] == 0.0f) {
                 myGrades[i] = grade;
                 isAdded = true;
                 break;
-            }
+            }   
         }
 
         if (!isAdded) {
@@ -67,21 +67,28 @@ public class Student {
         }
     }
 
-    public float getAverage() {
-        float sum = 0.0f;
-        int pnum = 0;
-        float avg = 0.0f;
-        for (int i = 0; i < myGrades.length; i++) {
-            if (myGrades[i] != 0.0f) {
-                pnum++;
-                sum += myGrades[i];
-            }
-        }
-        avg = sum / pnum;
-        return avg;
+    // public float getAverage() {
+    //     float sum = 0.0f;
+    //     int pnum = 0;
+    //     float avg = 0.0f;
+    //     for (int i = 0; i < myGrades.length; i++) {
+    //         if (myGrades[i] != 0.0f) {
+    //             pnum++;
+    //             sum += myGrades[i];
+    //         }
+    //     }
+    //     avg = sum / pnum;
+    //     return avg;
+    // }
+
+    public float getFinalGrade() {
+        float gd = 0.0f;
+        gd += 0.3f*myGrades[0] + 0.3f*myGrades[1] + 0.4f*myGrades[2];
+        return gd;
     }
 
     public String toString() {
-        return "Name: " + getName() + "\nAge: " + getAge() + "\nHeight: " + getHeight() + "\nGrades: " + getGrade() + "\nAVG: " + getAverage();
+        return "Name: " + getName() + "\nAge: " + getAge() + "\nHeight: " + getHeight() + "\nGrades: " + getGrade() + "\nFinal Grade: " + getFinalGrade();
+        // + "\nAVG: " + getAverage()
     }
 }
