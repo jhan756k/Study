@@ -14,10 +14,10 @@ public class StudentTest {
             apcs[i] = new Student();
             apcs[i].setName(io.readLine());
             apcs[i].setAge(io.readInt());
-            apcs[i].setHeight((float) io.readDouble());
+            apcs[i].setHeight((float)io.readDouble());
 
             for (int j = 0; j < 3; j++) {
-                apcs[i].addGrade((float) io.readDouble());
+                apcs[i].addGrade((float)io.readDouble());
             }
 
             if (i != numStudents - 1) {
@@ -27,11 +27,11 @@ public class StudentTest {
 
         // Sort Students by Grade
         for (int i = 0; i < numStudents - 1; i++) {
-            for (int j = i + 1; j < numStudents; j++) {
-                if (apcs[i].getFinalGrade() < apcs[j].getFinalGrade()) {
-                    Student temp = apcs[i];
-                    apcs[i] = apcs[j];
-                    apcs[j] = temp;
+            for (int j = 0; j < numStudents - i - 1; j++) {
+                if (apcs[j].getFinalGrade() < apcs[j + 1].getFinalGrade()) {
+                    Student temp = apcs[j];
+                    apcs[j] = apcs[j + 1];
+                    apcs[j + 1] = temp;
                 }
             }
         }
