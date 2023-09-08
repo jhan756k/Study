@@ -22,7 +22,7 @@ public class Student {
 
     public void setAge(int age) {
         myAge = age;
-    }
+    }   
 
     public void setName(String name) {
         myName = name;

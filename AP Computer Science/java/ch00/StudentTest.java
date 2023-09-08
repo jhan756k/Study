@@ -3,7 +3,7 @@ import chn.util.*;
 public class StudentTest {
     public static void main(String[] args) {
 
-        FileInput io = new FileInput("student.txt");
+        FileInput io = new FileInput("java\\ch00\\student.txt");
         int numStudents = io.readInt();
         Student apcs[] = new Student[numStudents];
         float totalAvg = 0.0f;
@@ -55,5 +55,6 @@ public class StudentTest {
         variance /= numStudents;
         System.out.println("Variance of the Class: " + variance);
         System.out.println("Standard Deviation of the Class: " + Math.sqrt(variance));
+        io.close();
     }
 }
