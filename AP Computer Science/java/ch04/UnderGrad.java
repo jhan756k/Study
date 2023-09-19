@@ -1,5 +1,3 @@
-package java.ch04;
-
 public class UnderGrad extends Student{
     public UnderGrad(){
         super();
@@ -11,8 +9,8 @@ public class UnderGrad extends Student{
 
     public void computeGrade(){
         if (getTestAverage() >= 70)
-            setGrade("Pass");
+            setGrade("Pass for undergrad");
         else
-            setGrade("Fail");
+            setGrade("Fail for undergrad");
     }
 }
