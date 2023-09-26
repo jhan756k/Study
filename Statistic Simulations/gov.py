@@ -1,10 +1,9 @@
 import random
 
-# 당대표 - 죽이기, 보호하기 (연속X)
+# 당대표 - 죽이기, 보호하기, 탄핵소추안
 # 보좌관 - 추적하기 (연속X)
 
 # 민주 대표0, 민주 보좌관1, 국힘대표2, 국힘 보좌관3
-# save, game 턴마다 정리 및 숫자를 설명 텍스트로 치환
 # 연속 안되게 수정
 
 times = 1
@@ -13,10 +12,18 @@ win = ""
 for _ in range(times): # 게임 횟수
     # 게임 초기화
     alive = [True, True, True, True]
-    save = []
-    game = []
+    save = [[0, 0, 0, 0]]
+    game = [[True, True, True, True]]
+    n = 0
 
     while True: # 게임 턴 진행
+        n+=1 
+        print("턴", n)
+        for x in range(len(save[n-1])):
+            print(save[n-1][x])
+        print(game[n-1])
+        print()
+        
         if not alive[0] and not alive[2]: # 둘다 죽으면
             win = "무승부"
             break
@@ -43,7 +50,7 @@ for _ in range(times): # 게임 횟수
                 mpres = 2 # 본인 보호
 
         # 민주 보좌관 일
-        mhelp = random.randint(0, 1) # 0: 국힘 대표 추적 1: 국힘 보좌관 추적
+        mhelp = random.randint(0, 1) # 0: 국힘 대표 추적 1: 국힘 보좌관 추적 
         if not alive[mhelp+2]:
             mhelp = 1 - mhelp # 살아있는 사람으로 바꿈
         if not alive[1]: # 본인 뒤지면
@@ -72,8 +79,40 @@ for _ in range(times): # 게임 횟수
 
         # 할일 끝 ---------------------------------
 
-        save.append([mpres, mhelp, gpres, ghelp])
+        temp = []
+        if mpres == 0:
+            temp.append("민주 대표가 국힘 대표 암살시도")
+        elif mpres == 1:
+            temp.append("민주 대표가 국힘 보좌관 암살시도")
+        elif mpres == 2:
+            temp.append("민주 대표가 본인 보호")
+        elif mpres == 3:
+            temp.append("민주 대표가 보좌관 보호")
 
+        if mhelp == 0:
+            temp.append("민주 보좌관이 국힘 대표 추적")
+        elif mhelp == 1:
+            temp.append("민주 보좌관이 국힘 보좌관 추적")
+        elif mhelp == 4:
+            pass
+        
+        if gpres == 0:
+            temp.append("국힘 대표가 민주 대표 암살시도")
+        elif gpres == 1:
+            temp.append("국힘 대표가 민주 보좌관 암살시도")
+        elif gpres == 2:
+            temp.append("국힘 대표가 본인 보호")
+        elif gpres == 3:
+            temp.append("국힘 대표가 보좌관 보호")
+
+        if ghelp == 0:
+            temp.append("국힘 보좌관이 민주 대표 추적")
+        elif ghelp == 1:
+            temp.append("국힘 보좌관이 민주 보좌관 추적")
+        elif ghelp == 4:
+            pass
+
+        save.append(temp)
         # 정산 ------------------------------------
 
         # 민주당 대표 정산

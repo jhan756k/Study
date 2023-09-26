@@ -35,7 +35,7 @@ public class StudentsTest {
 
         for (Student s : students) {
             s.computeGrade();
-            System.out.println(s.getGrade());
+            System.out.println(s.getGrade());   
         }
     }
 }
