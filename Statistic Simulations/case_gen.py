@@ -8,6 +8,9 @@ import random
 
 times = 1
 win = ""
+wstat = 0
+lstat = 0
+mstat = 0
 
 for _ in range(times): # 게임 횟수
     # 게임 초기화
@@ -25,12 +28,15 @@ for _ in range(times): # 게임 횟수
         print()
         
         if not alive[0] and not alive[2]: # 둘다 죽으면
+            mstat += 1
             win = "무승부"
             break
         elif not alive[0]:
+            lstat += 1
             win = "국힘"
             break
         elif not alive[2]:
+            wstat += 1
             win = "민주"
             break
 
@@ -150,3 +156,7 @@ for _ in range(times): # 게임 횟수
                 alive[1] = False 
 
         game.append([alive[0], alive[1], alive[2], alive[3]])
+    print(win)
+
+# print(wstat/times, lstat/times, mstat/times)
+# print(save)
