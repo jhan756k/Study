@@ -1,16 +1,16 @@
-public class Student{
+public class CollegeStudent{
     public final static int NUM_TESTS = 3;
     private String name;
     private int[] tests;
     private String grade;
 
-    public Student(){
+    public CollegeStudent(){
         name = "";
         tests = new int[NUM_TESTS];
         grade = "";
     }
 
-    public Student(String studName, int[] studTests, String studGrade){
+    public CollegeStudent(String studName, int[] studTests, String studGrade){
         name = studName;
         tests = studTests;
         grade = studGrade;

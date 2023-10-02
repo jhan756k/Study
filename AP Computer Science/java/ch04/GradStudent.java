@@ -1,4 +1,4 @@
-public class GradStudent extends Student{
+public class GradStudent extends CollegeStudent{
 
     public GradStudent(){
         super();

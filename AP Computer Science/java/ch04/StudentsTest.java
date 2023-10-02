@@ -5,7 +5,7 @@ public class StudentsTest {
 
         FileInput io = new FileInput("java\\ch00\\student.txt");
         int numStudents = io.readInt();
-        Student[] students = new Student[numStudents];
+        CollegeStudent[] students = new CollegeStudent[numStudents];
         int age = 0;
         String name = "";
         int[] grades = new int[3];
@@ -33,7 +33,7 @@ public class StudentsTest {
             }
         }
 
-        for (Student s : students) {
+        for (CollegeStudent s : students) {
             s.computeGrade();
             System.out.println(s.getGrade());   
         }
