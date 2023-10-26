@@ -25,6 +25,16 @@ public class MyMatrix {
         }
     }   
 
+    public void setMatrix(double[][] val) {
+        numRows = val.length;
+        numCols = val[0].length;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                myElements[i][j] = val[i][j];
+            }
+        }
+    }
+
     public void printMatrix() {
         System.out.println("Matrix: " + myName);
         for (int i = 0; i < numRows; i++) {
@@ -108,12 +118,4 @@ public class MyMatrix {
             return det;
         }
     }
-
-    // public MyMatrix inverseMatrix() {
-    //     if (numRows != numCols) {
-    //         System.out.println("Error: cannot invert a non-square matrix");
-    //         return null;
-    //     }
-        
-    // }
 }
