@@ -62,7 +62,7 @@ public class MyMatrix {
         return m;
     }
 
-    public MyMatrix subMatrix(MyMatrix m) {
+    public MyMatrix subtractMatrix(MyMatrix m) {
         if (numRows != m.numRows || numCols != m.numCols) {
             System.out.println("Error: cannot subtract matrices of different sizes");
             return null;
@@ -102,7 +102,10 @@ public class MyMatrix {
         else {
             double det = 0.0;
             for (int i = 0; i < numRows; i++) {
-                MyMatrix subMatrix = new MyMatrix(myName + " sub " + i, numRows - 1, numCols - 1, 0.0);
+                if (myElements[0][i] == 0.0) {
+                    continue;
+                };
+                MyMatrix subMatrix = new MyMatrix("sub", numRows - 1, numCols - 1, 0.0);
                 for (int j = 1; j < numRows; j++) {
                     for (int k = 0; k < numRows; k++) {
                         if (k < i) {
@@ -117,5 +120,71 @@ public class MyMatrix {
             }
             return det;
         }
+    }
+
+    public MyMatrix transpose() {
+        MyMatrix result = new MyMatrix(myName, numCols, numRows, 0.0);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) { 
+                result.myElements[j][i] = myElements[i][j];
+            }
+        }
+        return result;
+    }
+
+    public MyMatrix subMatrix(int i, int j) {
+        MyMatrix result = new MyMatrix(myName + "S", numRows - 1, numCols - 1, 0.0);
+        for (int k = 0; k < numRows; k++) {
+            for (int l = 0; l < numCols; l++) {
+                if (k < i && l < j) {
+                    result.myElements[k][l] = myElements[k][l];
+                }
+                else if (k < i && l > j) {
+                    result.myElements[k][l - 1] = myElements[k][l];
+                }
+                else if (k > i && l < j) {
+                    result.myElements[k - 1][l] = myElements[k][l];
+                }
+                else if (k > i && l > j) {
+                    result.myElements[k - 1][l - 1] = myElements[k][l];
+                }
+            }
+        }
+        return result;
+    }
+
+    public MyMatrix adjacentMatrix() {
+        MyMatrix cof = new MyMatrix("Inverse", numRows, numCols, 0.0);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                cof.myElements[i][j] = subMatrix(i, j).determinant() * Math.pow(-1.0, i + j);
+            }
+        }
+        MyMatrix adj = cof.transpose();
+
+        return adj;
+    }
+
+    public MyMatrix inverseMatrix() {
+        if (determinant() == 0.0) {
+            System.out.println("Error: cannot invert a singular matrix");
+            return null;
+        }
+        double detinv = 1.0 / determinant();
+        MyMatrix x = adjacentMatrix();
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                x.myElements[i][j] *= detinv;
+                if (x.myElements[i][j] == -0.0) {
+                    x.myElements[i][j] = 0.0;
+                }
+            }
+        }
+        return x;
+    }
+
+    public MyMatrix divideMatrix(MyMatrix m) {
+        return multMatrix(m.inverseMatrix());
     }
 }
