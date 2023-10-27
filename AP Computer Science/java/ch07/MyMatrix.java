@@ -40,18 +40,19 @@ public class MyMatrix {
         for (int i = 0; i < numRows; i++) {
             System.out.print("[");
             for (int j = 0; j < numCols; j++) {
-                System.out.print(myElements[i][j]);
+                System.out.print(Math.round(myElements[i][j]*1000)/1000.0);
                 if (j < numCols - 1) {
                     System.out.print(", ");
                 }
             }
             System.out.println("]");
         }
+        System.out.println();
     }
 
     public MyMatrix addMatrix(MyMatrix m) {
         if (numRows != m.numRows || numCols != m.numCols) {
-            System.out.println("Error: cannot add matrices of different sizes");
+            System.out.println("두 행렬의 크기가 다릅니다.");
             return null;
         }
         for (int i = 0; i < numRows; i++) {
@@ -64,7 +65,7 @@ public class MyMatrix {
 
     public MyMatrix subtractMatrix(MyMatrix m) {
         if (numRows != m.numRows || numCols != m.numCols) {
-            System.out.println("Error: cannot subtract matrices of different sizes");
+            System.out.println("두 행렬의 크기가 다릅니다.");
             return null;
         }
         for (int i = 0; i < numRows; i++) {
@@ -77,7 +78,7 @@ public class MyMatrix {
 
     public MyMatrix multMatrix(MyMatrix m) {
         if (numCols != m.numRows) {
-            System.out.println("Error: cannot multiply matrices of these sizes");
+            System.out.println("두 행렬은 곱할 수 없는 크기입니다.");
             return null;
         }
         MyMatrix result = new MyMatrix(myName + " x " + m.myName, numRows, m.numCols, 0.0);
@@ -93,7 +94,7 @@ public class MyMatrix {
 
     public double determinant() {
         if (numRows != numCols) {
-            System.out.println("Error: cannot compute determinant of a non-square matrix");
+            System.out.println("square matrix가 아닙니다.");
             return 0.0;
         }
         if (numRows == 1) {
@@ -153,8 +154,8 @@ public class MyMatrix {
         return result;
     }
 
-    public MyMatrix adjacentMatrix() {
-        MyMatrix cof = new MyMatrix("Inverse", numRows, numCols, 0.0);
+    public MyMatrix adjointMatrix() {
+        MyMatrix cof = new MyMatrix("Inverse of mult", numRows, numCols, 0.0);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
                 cof.myElements[i][j] = subMatrix(i, j).determinant() * Math.pow(-1.0, i + j);
@@ -167,11 +168,11 @@ public class MyMatrix {
 
     public MyMatrix inverseMatrix() {
         if (determinant() == 0.0) {
-            System.out.println("Error: cannot invert a singular matrix");
+            System.out.println("singular matrix입니다");
             return null;
         }
         double detinv = 1.0 / determinant();
-        MyMatrix x = adjacentMatrix();
+        MyMatrix x = adjointMatrix();
 
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
