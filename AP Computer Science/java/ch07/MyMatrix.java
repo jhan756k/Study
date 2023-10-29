@@ -49,6 +49,26 @@ public class MyMatrix {
         }
     }
 
+    public void setVal(int i, int j, double v) {
+        myElements[i][j] = v;
+    }
+
+    public double getVal(int i, int j) {
+        return myElements[i][j];
+    }
+
+    public int getNumRows() {
+        return numRows;
+    }
+
+    public int getNumCols() {
+        return numCols;
+    }
+
+    public String getName() {
+        return myName;
+    }
+
     public void printMatrix() {
         System.out.println("Matrix: " + myName);
         for (int i = 0; i < numRows; i++) {
@@ -64,41 +84,41 @@ public class MyMatrix {
     }
 
     public MyMatrix addMatrix(MyMatrix m) {
-        if (numRows != m.numRows || numCols != m.numCols) {
+        if (numRows != m.getNumRows()  || numCols != m.getNumCols()) {
             System.out.println("두 행렬의 크기가 다릅니다.");
             return null;
         }
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) { 
-                myElements[i][j] += m.myElements[i][j];
+                myElements[i][j] += m.getVal(i, j);
             }
         }
         return m;
     }
 
     public MyMatrix subtractMatrix(MyMatrix m) {
-        if (numRows != m.numRows || numCols != m.numCols) {
+        if (numRows != m.getNumRows() || numCols != m.getNumCols()) {
             System.out.println("두 행렬의 크기가 다릅니다.");
             return null;
         }
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) { 
-                myElements[i][j] -= m.myElements[i][j];
+                myElements[i][j] -= m.getVal(i, j);
             }
         }
         return m;
     }
 
     public MyMatrix multMatrix(MyMatrix m) {
-        if (numCols != m.numRows) {
+        if (numCols != m.getNumRows()) {
             System.out.println("두 행렬은 곱할 수 없는 크기입니다.");
             return null;
         }
-        MyMatrix result = new MyMatrix(myName + " x " + m.myName, numRows, m.numCols, 0.0);
+        MyMatrix result = new MyMatrix(myName + " x " + m.getName(), numRows, m.getNumCols(), 0.0);
         for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < m.numCols; j++) {
+            for (int j = 0; j < m.getNumCols(); j++) {
                 for (int k = 0; k < numCols; k++) {
-                    result.myElements[i][j] += myElements[i][k] * m.myElements[k][j];
+                    result.setVal(i, j, result.getVal(i, j) + myElements[i][k] * m.getVal(k, j));
                 }
             }
         }
@@ -123,10 +143,10 @@ public class MyMatrix {
                 for (int j = 1; j < numRows; j++) {
                     for (int k = 0; k < numRows; k++) {
                         if (k < i) {
-                            subMatrix.myElements[j - 1][k] = myElements[j][k];
+                            subMatrix.setVal(j-1, k, myElements[j][k]);
                         }
                         else if (k > i) {
-                            subMatrix.myElements[j - 1][k - 1] = myElements[j][k];
+                            subMatrix.setVal(j-1, k-1, myElements[j][k]);
                         }
                     }
                 }
@@ -140,7 +160,7 @@ public class MyMatrix {
         MyMatrix result = new MyMatrix(myName, numCols, numRows, 0.0);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) { 
-                result.myElements[j][i] = myElements[i][j];
+                result.setVal(j, i, myElements[i][j]);
             }
         }
         return result;
@@ -151,16 +171,16 @@ public class MyMatrix {
         for (int k = 0; k < numRows; k++) {
             for (int l = 0; l < numCols; l++) {
                 if (k < i && l < j) {
-                    result.myElements[k][l] = myElements[k][l];
+                    result.setVal(k, l, myElements[k][l]);
                 }
                 else if (k < i && l > j) {
-                    result.myElements[k][l - 1] = myElements[k][l];
+                    result.setVal(k, l - 1, myElements[k][l]);
                 }
                 else if (k > i && l < j) {
-                    result.myElements[k - 1][l] = myElements[k][l];
+                    result.setVal(k - 1, l, myElements[k][l]);
                 }
                 else if (k > i && l > j) {
-                    result.myElements[k - 1][l - 1] = myElements[k][l];
+                    result.setVal(k - 1, l - 1, myElements[k][l]);
                 }
             }
         }
@@ -171,7 +191,7 @@ public class MyMatrix {
         MyMatrix cof = new MyMatrix("Inverse of mult", numRows, numCols, 0.0);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
-                cof.myElements[i][j] = subMatrix(i, j).determinant() * Math.pow(-1.0, i + j);
+                cof.setVal(i, j, subMatrix(i, j).determinant() * Math.pow(-1.0, i + j));
             }
         }
         MyMatrix adj = cof.transpose();
@@ -189,7 +209,7 @@ public class MyMatrix {
 
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
-                x.myElements[i][j] *= detinv;
+                x.setVal(i, j, x.getVal(i, j) * detinv);
             }
         }
         return x;
@@ -199,18 +219,19 @@ public class MyMatrix {
         return multMatrix(m.inverseMatrix());
     }
 
-    public MyMatrix REF() {
-        MyMatrix res = new MyMatrix(numCols, 0);
-        for (int i = 1; i < numRows; i++) {
-            for (int c = 0; c < numCols; c++) {
-                double coef;
-                coef = myElements[i][c];
+    // public MyMatrix REF() {
+        
+    // }
+
+    public boolean checkMult(MyMatrix res, MyMatrix div) {
+        MyMatrix tmp = res.multMatrix(div);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 0.0001) {
+                    return false;
+                }
             }
         }
-        return res;
-    }
-
-    public void check() {
-        return;
+        return true;
     }
 }
