@@ -14,7 +14,7 @@ public class MyMatrix {
     }
 
     public MyMatrix(String name, int nR, int nC, double val) {
-        myName = name;  
+        myName = name;
         numRows = nR;
         numCols = nC;
         myElements = new double[numRows][numCols];
@@ -24,6 +24,20 @@ public class MyMatrix {
             }
         }
     }   
+    
+    public MyMatrix(int n, double v) {
+        myName = "identity matrix";
+        numRows = n;
+        numCols = n;
+        myElements = new double[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                if (i == j) {
+                    myElements[i][j] = v;
+                }
+            }
+        }
+    };
 
     public void setMatrix(double[][] val) {
         numRows = val.length;
@@ -40,10 +54,9 @@ public class MyMatrix {
         for (int i = 0; i < numRows; i++) {
             System.out.print("[");
             for (int j = 0; j < numCols; j++) {
-                System.out.print(Math.round(myElements[i][j]*1000)/1000.0);
-                if (j < numCols - 1) {
-                    System.out.print(", ");
-                }
+                if (myElements[i][j] == -0.0) System.out.print(0.0);
+                else System.out.print(Math.round(myElements[i][j]*1000)/1000.0);
+                if (j < numCols - 1) System.out.print(", ");
             }
             System.out.println("]");
         }
@@ -177,9 +190,6 @@ public class MyMatrix {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
                 x.myElements[i][j] *= detinv;
-                if (x.myElements[i][j] == -0.0) {
-                    x.myElements[i][j] = 0.0;
-                }
             }
         }
         return x;
@@ -187,5 +197,20 @@ public class MyMatrix {
 
     public MyMatrix divideMatrix(MyMatrix m) {
         return multMatrix(m.inverseMatrix());
+    }
+
+    public MyMatrix REF() {
+        MyMatrix res = new MyMatrix(numCols, 0);
+        for (int i = 1; i < numRows; i++) {
+            for (int c = 0; c < numCols; c++) {
+                double coef;
+                coef = myElements[i][c];
+            }
+        }
+        return res;
+    }
+
+    public void check() {
+        return;
     }
 }

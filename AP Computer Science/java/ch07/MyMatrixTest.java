@@ -29,8 +29,17 @@ public class MyMatrixTest {
         MyMatrix m2 = new MyMatrix("m2", rows, cols, 0);
         m2.setMatrix(val2);
     
-        MyMatrix res = new MyMatrix();
-        res = m1.divideMatrix(m2);
+        // MyMatrix res = new MyMatrix();
+        // MyMatrix check = new MyMatrix();
+        // res = m1.divideMatrix(m2);
+        // check = res.multMatrix(m2);
+
+        // m1.printMatrix();
+        // m2.printMatrix();
+        // res.printMatrix();
+        // check.printMatrix();
+
+        MyMatrix res = m1.multMatrix(m2);
 
         m1.printMatrix();
         m2.printMatrix();
