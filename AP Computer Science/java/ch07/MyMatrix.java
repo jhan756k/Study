@@ -219,14 +219,59 @@ public class MyMatrix {
         return multMatrix(m.inverseMatrix());
     }
 
-    // public MyMatrix REF() {
+    public void swapRows(int r1, int r2) {
+        double[] tmp = myElements[r1];
+        myElements[r1] = myElements[r2];
+        myElements[r2] = tmp;
+    }
+
+    public MyMatrix solveMatrix(MyMatrix sol) {
         
-    // }
+        // Augmented Matrix 생성
+        MyMatrix res = new MyMatrix("sol", numRows, numCols + 1, 0.0);
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                res.setVal(i, j, myElements[i][j]);
+            }
+        }
+
+        for (int i = 0; i < numRows; i++) {
+            res.setVal(i, numCols, sol.getVal(i, 0));
+        }
+        
+        // Gaussian Elimination
+        double lead, prev;
+        for (int r = 0; r < numRows; r++) { // 각 행마다 돌아가면서 대각으로 만들기
+            while (res.getVal(r, r) == 0) {
+                for (int i = r + 1; i < numRows; i++) {
+                    if (res.getVal(i, r) != 0) {
+                        res.swapRows(r, i);
+                        break;
+                    }
+                }
+            }
+            
+            if (r != 0) { // 첫 행이 아닌 경우
+                for (int x = 0; x < r; x++) { // 대각선 아래 행들을 0으로 만들기
+                    lead = res.getVal(r, x);
+                    prev = res.getVal(x, x);
+                    if (lead == 0 || prev == 0) continue;
+                    
+                    for (int y = 0; y < numCols + 1; y++) { // 각 행의 원소들을 계산
+                        res.setVal(r, y, res.getVal(r, y) - ((lead/prev) * res.getVal(x, y)));
+                    }
+                }
+            }
+        }
+        return res;
+    }
 
     public boolean checkMult(MyMatrix res, MyMatrix div) {
         MyMatrix tmp = res.multMatrix(div);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
+                // System.out.println(Math.abs(tmp.getVal(i, j) - myElements[i][j]));
                 if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 0.0001) {
                     return false;
                 }

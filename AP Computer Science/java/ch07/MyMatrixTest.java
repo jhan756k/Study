@@ -3,31 +3,28 @@ import chn.util.*;
 
 public class MyMatrixTest {
     public static void main(String[] args)   {
-        FileInput io = new FileInput("ch07\\matrix1.txt");
-        int rows = io.readInt();
-        int cols = io.readInt();
-        double val[][] = new double[rows][cols];
-        for (int i = 0; i < rows; i++)   {
-            for (int j = 0; j < cols; j++)   {
-                val[i][j] = io.readDouble();
+        FileInput io = new FileInput("ch07\\matrix.txt");
+        int rows, cols;
+        MyMatrix m[] = new MyMatrix[10];
+        String stop;
+
+        for (int k = 0; k < 10; k++) {
+            rows = io.readInt();
+            cols = io.readInt();
+            double val[][] = new double[rows][cols];
+            for (int i = 0; i < rows; i++)   {
+                for (int j = 0; j < cols; j++)   {
+                    val[i][j] = io.readDouble();
+                }
+            }
+            m[k] = new MyMatrix("m" + k, rows, cols, 0);
+            m[k].setMatrix(val);
+            stop = io.readLine();
+
+            if (stop.equals("stop")) {
+                break;
             }
         }
-
-        MyMatrix m1 = new MyMatrix("m1", rows, cols, 0);
-        m1.setMatrix(val);
-
-        io = new FileInput("ch07\\matrix2.txt");
-        rows = io.readInt();
-        cols = io.readInt();
-        double val2[][] = new double[rows][cols];
-        for (int i = 0; i < rows; i++)   {
-            for (int j = 0; j < cols; j++)   {
-                val2[i][j] = io.readDouble();
-            }
-        }
-
-        MyMatrix m2 = new MyMatrix("m2", rows, cols, 0);
-        m2.setMatrix(val2);
     
         // MyMatrix res = new MyMatrix();
         // res = m1.divideMatrix(m2);
@@ -38,10 +35,15 @@ public class MyMatrixTest {
         // res.printMatrix();
         // System.out.println(check);
 
-        MyMatrix res = m1.multMatrix(m2);
+        // MyMatrix multres = m[0].multMatrix(m[1]);
 
-        m1.printMatrix();
-        m2.printMatrix();
-        res.printMatrix();
+        // m[0].printMatrix();
+        // m[1].printMatrix();
+        // multres.printMatrix();
+        // System.out.println(multres.checkMult(m[0], m[1]));
+
+        MyMatrix solve = m[2].solveMatrix(m[3]);
+        solve.printMatrix();
+        
     }
 }
