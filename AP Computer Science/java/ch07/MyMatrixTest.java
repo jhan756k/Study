@@ -41,9 +41,13 @@ public class MyMatrixTest {
         // m[1].printMatrix();
         // multres.printMatrix();
         // System.out.println(multres.checkMult(m[0], m[1]));
+        
+        m[2].printMatrix();
+        m[3].printMatrix();
 
-        MyMatrix solve = m[2].solveMatrix(m[3]);
-        solve.printMatrix();
+        MyMatrix []solve = m[2].gaussianElimination(m[3]);
+        solve[0].printMatrix();
+        solve[1].printMatrix();
         
     }
 }
