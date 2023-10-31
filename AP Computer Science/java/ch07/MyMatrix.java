@@ -229,16 +229,18 @@ public class MyMatrix {
     public MyMatrix[] gaussianElimination(MyMatrix sol) {
         
         // Augmented Matrix 생성
-        MyMatrix res = new MyMatrix("ref", numRows, numCols + 1, 0.0);
-        MyMatrix x = new MyMatrix("sol", numRows, 1, 0.0);
+        MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
+        MyMatrix x = new MyMatrix("sol", numRows, numCols, 0.0);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 res.setVal(i, j, myElements[i][j]);
             }
         }
 
-        for (int i = 0; i < numRows; i++) {
-            res.setVal(i, numCols, sol.getVal(i, 0));
+        for (int i = 0; i < sol.numRows; i++) {
+            for (int j = 0; j < sol.numCols; j++) {
+                res.setVal(i, numCols + j, sol.getVal(i, j));
+            }
         }
 
         double ratio;
@@ -261,7 +263,7 @@ public class MyMatrix {
                     res.setVal(j, k, res.getVal(j, k) - ratio * res.getVal(i, k));
                 }
             }
-        }
+        }  
 
         x.setVal(numRows - 1, 0, res.getVal(numRows - 1, numCols) / res.getVal(numRows - 1, numRows - 1)); // 마지막행 x값 구하기
 

@@ -49,5 +49,6 @@ public class MyMatrixTest {
         solve[0].printMatrix();
         solve[1].printMatrix();
         
+        System.out.println(m[3].checkMult(m[2], solve[1]));
     }
 }
