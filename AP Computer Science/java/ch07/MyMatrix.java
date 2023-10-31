@@ -230,7 +230,7 @@ public class MyMatrix {
         
         // Augmented Matrix 생성
         MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
-        MyMatrix x = new MyMatrix("sol", numRows, numCols, 0.0);
+        MyMatrix x = new MyMatrix("sol", numCols, sol.numCols, 0.0);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 res.setVal(i, j, myElements[i][j]);
@@ -243,6 +243,7 @@ public class MyMatrix {
             }
         }
 
+        // Gaussian Elimination
         double ratio;
         for (int i = 0; i < numRows; i++) { // 각 행 돌면서 
             for (int j = i + 1; j < numRows; j++) { // 그 밑 행들중
@@ -259,78 +260,34 @@ public class MyMatrix {
                     }
                 }
                 ratio = res.getVal(j, i) / res.getVal(i, i); // 대각행마다 아래 원소 0 만듬
-                for (int k = 0; k < numCols + 1; k++) { // 각 행의 원소들을 계산
+                for (int k = 0; k < numCols + sol.numCols; k++) { // 각 행의 원소들을 계산
                     res.setVal(j, k, res.getVal(j, k) - ratio * res.getVal(i, k));
                 }
             }
         }  
 
-        x.setVal(numRows - 1, 0, res.getVal(numRows - 1, numCols) / res.getVal(numRows - 1, numRows - 1)); // 마지막행 x값 구하기
-
-        for (int i = numRows - 2; i >= 0; i--) {
-            double sum = 0.0;
-            for (int j = i + 1; j < numRows; j++) { // x값 계산
-                sum += res.getVal(i, j) * x.getVal(j, 0);
+        // Back Substitution
+        for (int i = 0; i < sol.numCols; i++) {
+            for (int j = numRows - 1; j >= 0; j--) {
+                double sum = 0.0;
+                for (int k = j + 1; k < numRows; k++) { // 대각선 위 원소들 빼줌
+                    sum += res.getVal(j, k) * x.getVal(k, i);
+                }
+                x.setVal(j, i, (res.getVal(j, numCols + i) - sum) / res.getVal(j, j));
             }
-            x.setVal(i, 0, (res.getVal(i, numCols) - sum) / res.getVal(i, i));
         }
 
         MyMatrix ret[] = new MyMatrix[2];
         ret[0] = res;
         ret[1] = x;
         return ret;
-
-        // Augmented Matrix 생성
-        // MyMatrix res = new MyMatrix("sol", numRows, numCols + 1, 0.0);
-
-        // for (int i = 0; i < numRows; i++) {
-        //     for (int j = 0; j < numCols; j++) {
-        //         res.setVal(i, j, myElements[i][j]);
-        //     }
-        // }
-
-        // for (int i = 0; i < numRows; i++) {
-        //     res.setVal(i, numCols, sol.getVal(i, 0));
-        // }
-        
-        // // Gaussian Elimination
-        // double lead, prev;
-        // int sk = 0;
-        // for (int r = 0; r < numRows; r++) { // 각 행마다 돌아가면서 대각으로 만들기
-        //     for (int i = r - sk; i < numRows; i++) { // 모든 행 돌기
-        //         if (res.getVal(i, r) != 0) {
-        //             res.swapRows(r, i);
-        //             sk = 0;
-        //             break;
-        //         }
-        //         if (i == numRows - 1) {
-        //             sk = 1;
-        //         }
-        //     }
-        //     if (sk == 1) continue;
-            
-        //     if (r != 0) { // 첫 행이 아닌 경우
-        //         for (int x = 0; x < r; x++) { // 대각선 아래 행들을 0으로 만들기
-        //             lead = res.getVal(r, x);
-        //             prev = res.getVal(x, x);
-        //             if (lead == 0 || prev == 0) continue;
-                    
-        //             for (int y = 0; y < numCols + 1; y++) { // 각 행의 원소들을 계산
-        //                 res.setVal(r, y, res.getVal(r, y) - ((lead/prev) * res.getVal(x, y)));
-        //             }
-        //         }
-        //     }
-        //     res.printMatrix();
-        // }
-        // return res;
     }
 
     public boolean checkMult(MyMatrix res, MyMatrix div) {
         MyMatrix tmp = res.multMatrix(div);
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                // System.out.println(Math.abs(tmp.getVal(i, j) - myElements[i][j]));
-                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 0.0001) {
+                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 1e-6) {
                     return false;
                 }
             }
