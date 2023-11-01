@@ -5,7 +5,7 @@ public class MyMatrixTest {
     public static void main(String[] args)   {
         FileInput io = new FileInput("ch07\\matrix.txt");
         int rows, cols;
-        MyMatrix m[] = new MyMatrix[10];
+        MyMatrix []m = new MyMatrix[10];
         String stop;
 
         for (int k = 0; k < 10; k++) {
@@ -34,5 +34,18 @@ public class MyMatrixTest {
         solve[1].printMatrix();
         
         System.out.println(m[1].checkMult(m[0], solve[1]));
+
+        // ---------------------------------------------------------------
+        // MyMatrix big = new MyMatrix("big", 100, 100, 0);
+        // big.randomMatrix(-50, 100);
+
+        // MyMatrix bigans = new MyMatrix("bigans", 100, 100, 0);
+        // bigans.randomMatrix(-50, 100);
+
+        // MyMatrix []bigSolve = big.gaussianElimination(bigans);
+        // bigSolve[0].printMatrix();
+        // bigSolve[1].printMatrix();
+
+        // System.out.println(bigans.checkMult(big, bigSolve[1]));
     }
 }

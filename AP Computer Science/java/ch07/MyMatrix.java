@@ -49,6 +49,14 @@ public class MyMatrix {
         }
     }
 
+    public void randomMatrix(int s, int e) {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                myElements[i][j] = Math.random() * (e - s) + s;
+            }
+        }
+    }
+
     public void setVal(int i, int j, double v) {
         myElements[i][j] = v;
     }
