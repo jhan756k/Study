@@ -197,18 +197,20 @@ public class MyMatrix {
         return ret;
     }
 
-    public boolean checkMult(MyMatrix res, MyMatrix div) {
+    public void checkMult(MyMatrix res, MyMatrix div) {
         MyMatrix tmp = res.multMatrix(div);
+        double sum = 0;
+        int numElem = numRows * numCols;
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 1e-6) {
-                    return false;
-                }
+                sum += Math.abs(tmp.getVal(i, j) - myElements[i][j]);
             }
         }
-        return true;
+        System.out.println("오차 평균: " + sum/numElem);
+        return;
     }
 
+    // Inverse using determinant
     public double determinant() {
         if (numRows != numCols) {
             System.out.println("square matrix가 아닙니다.");
