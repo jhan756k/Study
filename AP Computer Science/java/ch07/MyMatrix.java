@@ -133,6 +133,82 @@ public class MyMatrix {
         return result;
     }
 
+    public void swapRows(int r1, int r2) {
+        if (r1 == r2) return;
+        double[] tmp = myElements[r1];
+        myElements[r1] = myElements[r2];
+        myElements[r2] = tmp;
+    }
+
+    public MyMatrix[] gaussianElimination(MyMatrix sol) {
+        
+        // Augmented Matrix 생성
+        MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
+        MyMatrix x = new MyMatrix("sol", numCols, sol.numCols, 0.0);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                res.setVal(i, j, myElements[i][j]);
+            }
+        }
+
+        for (int i = 0; i < sol.numRows; i++) {
+            for (int j = 0; j < sol.numCols; j++) {
+                res.setVal(i, numCols + j, sol.getVal(i, j));
+            }
+        }
+
+        // Gaussian Elimination
+        double ratio;
+        for (int i = 0; i < numRows; i++) { // 각 행 돌면서 
+            for (int j = i + 1; j < numRows; j++) { // 그 밑 행들중
+                if (res.getVal(i, i) == 0) { // 대각선 원소가 0이면
+                    for (int k = i + 1; k < numRows; k++) { // 아닌거 찾을때까지 for
+                        if (res.getVal(k, i) != 0) { 
+                            res.swapRows(i, k);
+                            break;
+                        }
+                        if (k == numRows - 1) { // 다돌았는데도 못찾으면 singular matrix or infinite solutions
+                            System.out.println("해를 구할 수 없습니다.");
+                            return null;
+                        }
+                    }
+                }
+                ratio = res.getVal(j, i) / res.getVal(i, i); // 대각행마다 아래 원소 0 만듬
+                for (int k = 0; k < numCols + sol.numCols; k++) { // 각 행의 원소들을 계산
+                    res.setVal(j, k, res.getVal(j, k) - ratio * res.getVal(i, k));
+                }
+            }
+        }  
+
+        // Back Substitution
+        for (int i = 0; i < sol.numCols; i++) { // 왼쪽 아래부터
+            for (int j = numRows - 1; j >= 0; j--) {
+                double sum = 0.0;
+                for (int k = j + 1; k < numRows; k++) { // 대각선 위 원소들 빼줌
+                    sum += res.getVal(j, k) * x.getVal(k, i); // 대각선 위 원소들 값 계산
+                }             // 해당 b 값 - sum / 열의 대각 원소 값 (구하고자 하는 x 값의 계수)
+                x.setVal(j, i, (res.getVal(j, numCols + i) - sum) / res.getVal(j, j));
+            }
+        }
+
+        MyMatrix ret[] = new MyMatrix[2];
+        ret[0] = res;
+        ret[1] = x;
+        return ret;
+    }
+
+    public boolean checkMult(MyMatrix res, MyMatrix div) {
+        MyMatrix tmp = res.multMatrix(div);
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 1e-6) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public double determinant() {
         if (numRows != numCols) {
             System.out.println("square matrix가 아닙니다.");
@@ -225,81 +301,5 @@ public class MyMatrix {
 
     public MyMatrix divideMatrix(MyMatrix m) {
         return multMatrix(m.inverseMatrix());
-    }
-
-    public void swapRows(int r1, int r2) {
-        if (r1 == r2) return;
-        double[] tmp = myElements[r1];
-        myElements[r1] = myElements[r2];
-        myElements[r2] = tmp;
-    }
-
-    public MyMatrix[] gaussianElimination(MyMatrix sol) {
-        
-        // Augmented Matrix 생성
-        MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
-        MyMatrix x = new MyMatrix("sol", numCols, sol.numCols, 0.0);
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                res.setVal(i, j, myElements[i][j]);
-            }
-        }
-
-        for (int i = 0; i < sol.numRows; i++) {
-            for (int j = 0; j < sol.numCols; j++) {
-                res.setVal(i, numCols + j, sol.getVal(i, j));
-            }
-        }
-
-        // Gaussian Elimination
-        double ratio;
-        for (int i = 0; i < numRows; i++) { // 각 행 돌면서 
-            for (int j = i + 1; j < numRows; j++) { // 그 밑 행들중
-                if (res.getVal(i, i) == 0) { // 대각선 원소가 0이면
-                    for (int k = i + 1; k < numRows; k++) { // 아닌거 찾을때까지 for
-                        if (res.getVal(k, i) != 0) { 
-                            res.swapRows(i, k);
-                            break;
-                        }
-                        if (k == numRows - 1) { // 다돌았는데도 못찾으면 singular matrix or infinite solutions
-                            System.out.println("해를 구할 수 없습니다.");
-                            return null;
-                        }
-                    }
-                }
-                ratio = res.getVal(j, i) / res.getVal(i, i); // 대각행마다 아래 원소 0 만듬
-                for (int k = 0; k < numCols + sol.numCols; k++) { // 각 행의 원소들을 계산
-                    res.setVal(j, k, res.getVal(j, k) - ratio * res.getVal(i, k));
-                }
-            }
-        }  
-
-        // Back Substitution
-        for (int i = 0; i < sol.numCols; i++) {
-            for (int j = numRows - 1; j >= 0; j--) {
-                double sum = 0.0;
-                for (int k = j + 1; k < numRows; k++) { // 대각선 위 원소들 빼줌
-                    sum += res.getVal(j, k) * x.getVal(k, i);
-                }
-                x.setVal(j, i, (res.getVal(j, numCols + i) - sum) / res.getVal(j, j));
-            }
-        }
-
-        MyMatrix ret[] = new MyMatrix[2];
-        ret[0] = res;
-        ret[1] = x;
-        return ret;
-    }
-
-    public boolean checkMult(MyMatrix res, MyMatrix div) {
-        MyMatrix tmp = res.multMatrix(div);
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                if (Math.abs(tmp.getVal(i, j) - myElements[i][j]) > 1e-6) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 }
