@@ -140,7 +140,7 @@ public class MyMatrix {
         myElements[r2] = tmp;
     }
 
-    public MyMatrix[] gaussianElimination(MyMatrix sol) {
+    public MyMatrix gaussianElimination(MyMatrix sol) {
         
         // Augmented Matrix 생성
         MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
@@ -190,11 +190,7 @@ public class MyMatrix {
                 x.setVal(j, i, (res.getVal(j, numCols + i) - sum) / res.getVal(j, j));
             }
         }
-
-        MyMatrix ret[] = new MyMatrix[2];
-        ret[0] = res;
-        ret[1] = x;
-        return ret;
+        return x;
     }
 
     public void checkMult(MyMatrix res, MyMatrix div) {
@@ -206,7 +202,7 @@ public class MyMatrix {
                 sum += Math.abs(tmp.getVal(i, j) - myElements[i][j]);
             }
         }
-        System.out.println("오차 평균: " + sum/numElem);
+        System.out.println("곱셈 오차 평균: " + sum/numElem);
         return;
     }
 
@@ -302,6 +298,6 @@ public class MyMatrix {
     }
 
     public MyMatrix divideMatrix(MyMatrix m) {
-        return multMatrix(m.inverseMatrix());
+        return inverseMatrix().multMatrix(m);
     }
 }
