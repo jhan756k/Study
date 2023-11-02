@@ -140,22 +140,25 @@ public class MyMatrix {
         myElements[r2] = tmp;
     }
 
-    public MyMatrix gaussianElimination(MyMatrix sol) {
-        
-        // Augmented Matrix 생성
-        MyMatrix res = new MyMatrix("ref", numRows, numCols + sol.numCols, 0.0);
-        MyMatrix x = new MyMatrix("sol", numCols, sol.numCols, 0.0);
+    public MyMatrix augmentedMatrix(MyMatrix s) {
+        MyMatrix result = new MyMatrix(myName + " | " + s.getName(), numRows, numCols + s.getNumCols(), 0.0);
         for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                res.setVal(i, j, myElements[i][j]);
+            for (int j = 0; j < numCols + s.getNumCols(); j++) {
+                if (j < numCols) {
+                    result.setVal(i, j, myElements[i][j]);
+                }
+                else {
+                    result.setVal(i, j, s.getVal(i, j - numCols));
+                }
             }
         }
+        return result;
+    }
 
-        for (int i = 0; i < sol.numRows; i++) {
-            for (int j = 0; j < sol.numCols; j++) {
-                res.setVal(i, numCols + j, sol.getVal(i, j));
-            }
-        }
+    public MyMatrix[] gaussianElimination(MyMatrix sol) {
+        
+        MyMatrix res = augmentedMatrix(sol);
+        MyMatrix x = new MyMatrix("sol", numCols, sol.getNumCols(), 0.0);
 
         // Gaussian Elimination
         double ratio;
@@ -174,14 +177,14 @@ public class MyMatrix {
                     }
                 }
                 ratio = res.getVal(j, i) / res.getVal(i, i); // 대각행마다 아래 원소 0 만듬
-                for (int k = 0; k < numCols + sol.numCols; k++) { // 각 행의 원소들을 계산
+                for (int k = 0; k < numCols + sol.getNumCols(); k++) { // 각 행의 원소들을 계산
                     res.setVal(j, k, res.getVal(j, k) - ratio * res.getVal(i, k));
                 }
             }
         }  
 
         // Back Substitution
-        for (int i = 0; i < sol.numCols; i++) { // 왼쪽 아래부터
+        for (int i = 0; i < sol.getNumCols(); i++) { // 왼쪽 아래부터
             for (int j = numRows - 1; j >= 0; j--) {
                 double sum = 0.0;
                 for (int k = j + 1; k < numRows; k++) { // 대각선 위 원소들 빼줌
@@ -190,7 +193,37 @@ public class MyMatrix {
                 x.setVal(j, i, (res.getVal(j, numCols + i) - sum) / res.getVal(j, j));
             }
         }
-        return x;
+
+        MyMatrix[] result = new MyMatrix[2];
+        result[0] = res;
+        result[1] = x;
+        return result;
+    }
+
+    public MyMatrix inverseAlgorithm(MyMatrix sol) {
+
+        MyMatrix ref = gaussianElimination(sol)[0];
+        MyMatrix x = new MyMatrix("sol", numCols, sol.getNumCols(), 0.0);
+        double ratio;
+
+        for (int r = 0; r < numRows; r++) {
+            ratio = 1.0 / ref.getVal(r, r);
+            for (int c = 0; c < numCols + sol.getNumCols(); c++) {
+                ref.setVal(r, c, ref.getVal(r, c) * ratio);
+            }
+        }
+
+        for (int r = 0; r < numRows - 1; r++) {
+            for (int c = r + 1; c < numCols; c++) {
+                if (ref.getVal(r, c) == 0) continue;
+                ratio = ref.getVal(r, c);
+                for (int k = 0; k < numCols + sol.getNumCols(); k++) {
+                    ref.setVal(r, k, ref.getVal(r, k) - ratio * ref.getVal(c, k));
+                }
+            }
+        }
+
+        return ref;
     }
 
     public void checkMult(MyMatrix res, MyMatrix div) {

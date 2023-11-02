@@ -29,13 +29,16 @@ public class MyMatrixTest {
         m[0].printMatrix();
         m[1].printMatrix();
 
-        MyMatrix solve = m[0].gaussianElimination(m[1]);
+        MyMatrix solve = m[0].gaussianElimination(m[1])[1];
         solve.printMatrix();
         
         m[1].checkMult(m[0], solve);
 
         MyMatrix det = m[0].divideMatrix(m[1]);
         det.printMatrix();
+
+        solve = m[0].inverseAlgorithm(m[1]);
+        solve.printMatrix();
 
         // ---------------------------------------------------------------
         // MyMatrix big = new MyMatrix("big", 1000, 1000, 0.0);
