@@ -200,7 +200,7 @@ public class MyMatrix {
         return result;
     }
 
-    public MyMatrix inverseAlgorithm(MyMatrix sol) {
+    public MyMatrix[] inverseAlgorithm(MyMatrix sol) {
 
         MyMatrix ref = gaussianElimination(sol)[0];
         MyMatrix x = new MyMatrix("sol", numCols, sol.getNumCols(), 0.0);
@@ -223,7 +223,28 @@ public class MyMatrix {
             }
         }
 
-        return ref;
+        for (int r = 0; r < numRows; r++) {
+            for (int c = numCols; c < numCols + sol.getNumCols(); c++) {
+                x.setVal(r, c - numCols, ref.getVal(r, c));
+            }
+        }
+
+        MyMatrix[] result= new MyMatrix[2];
+        result[0] = ref;
+        result[1] = x;
+        return result;
+    }
+
+    public void compareMatrix(MyMatrix c) {
+        double sum = 0;
+        int numElem = numRows * numCols;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++){
+                sum += Math.abs(myElements[i][j] - c.getVal(i, j));
+            }
+        }
+        System.out.println("두 행렬의 오차 평균: " + sum/numElem);
+        return;
     }
 
     public void checkMult(MyMatrix res, MyMatrix div) {
@@ -238,6 +259,8 @@ public class MyMatrix {
         System.out.println("곱셈 오차 평균: " + sum/numElem);
         return;
     }
+
+    // -------------------------------------------------------------------------------------
 
     // Inverse using determinant
     public double determinant() {
