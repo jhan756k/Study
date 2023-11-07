@@ -32,35 +32,38 @@ public class MyMatrixTest {
         MyMatrix solve[] = m[0].gaussianElimination(m[1]);
         solve[1].printMatrix();
 
-        MyMatrix det = m[0].divideMatrix(m[1]);
-        det.printMatrix();
-
-        MyMatrix inv[] = m[0].inverseAlgorithm(m[1]);
+        MyMatrix inv[] = m[0].reduced(m[1]);
         inv[1].printMatrix();
 
         solve[0].printMatrix();
         inv[0].printMatrix();
 
         m[1].checkMult(m[0], solve[1]);
-        m[1].checkMult(m[0], det);
         m[1].checkMult(m[0], inv[1]);
 
-        // ---------------------------------------------------------------
-        // MyMatrix big = new MyMatrix("big", 100, 100, 0.0);
-        // big.randomMatrix(-100, 100);
+        solve[1].compareMatrix(inv[1]);
 
-        // MyMatrix bigans = new MyMatrix("bigans", 100, 100, 0.0);
-        // bigans.randomMatrix(-100, 100);
-
-        // MyMatrix gauss = big.gaussianElimination(bigans)[1];
-        // gauss.printMatrix();
-
-        // MyMatrix inverse = big.inverseAlgorithm(bigans)[1];
+        // inverse
+        // MyMatrix inverse = m[0].inverseMatrix();
         // inverse.printMatrix();
+        // inverse.multMatrix(m[1]).printMatrix();
 
-        // bigans.checkMult(big, gauss);
-        // bigans.checkMult(big, inverse);
+        // ---------------------------------------------------------------
+        MyMatrix big = new MyMatrix("big", 100, 100, 0.0);
+        big.randomMatrix(-100, 100);
 
-        // gauss.compareMatrix(inverse);
+        MyMatrix bigans = new MyMatrix("bigans", 100, 100, 0.0);
+        bigans.randomMatrix(-100, 100);
+
+        MyMatrix gauss = big.gaussianElimination(bigans)[1];
+        gauss.printMatrix();
+
+        MyMatrix inverse[] = big.reduced(bigans);
+        inverse[1].printMatrix();
+
+        bigans.checkMult(big, gauss);
+        bigans.checkMult(big, inverse[1]);
+
+        gauss.compareMatrix(inverse[1]);
     }
 }

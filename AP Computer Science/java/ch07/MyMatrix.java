@@ -200,7 +200,7 @@ public class MyMatrix {
         return result;
     }
 
-    public MyMatrix[] inverseAlgorithm(MyMatrix sol) {
+    public MyMatrix[] reduced(MyMatrix sol) {
 
         MyMatrix ref = gaussianElimination(sol)[0];
         MyMatrix x = new MyMatrix("sol", numCols, sol.getNumCols(), 0.0);
