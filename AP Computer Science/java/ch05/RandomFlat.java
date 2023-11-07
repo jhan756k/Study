@@ -26,7 +26,5 @@ public class RandomFlat {
             System.out.println(count[i]);
         }
         System.out.println(s/arr.length);
-
-        Deck shuffle
     }
 }
