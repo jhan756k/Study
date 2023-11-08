@@ -15,6 +15,9 @@ public class ArrayListTest {
         
         na = list.remove(2); // Remove 도 값 반환
 
+        System.out.println(n);
+        System.out.println(na);
+
         list.add(2, -201); // 2번째 index에 200 추가
 
         print(list);
