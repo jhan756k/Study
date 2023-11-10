@@ -5,10 +5,11 @@ public class ImageTest {
         Image image = new Image(9);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9 ; j++) {
-                if (Math.random() < 0.5)
-                    image.setPixel(i, j, 1);
+                if (Math.random() < 0.2)
+                    image.setPixel(i, j);
             }
         }
+
         image.display();
         image.eraseBlob(0, 0);
         image.display();
