@@ -5,7 +5,7 @@ public class ImageTest {
         Image image = new Image(9);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9 ; j++) {
-                if (Math.random() < 0.2)
+                if (Math.random() < 0.5)
                     image.setPixel(i, j);
             }
         }
