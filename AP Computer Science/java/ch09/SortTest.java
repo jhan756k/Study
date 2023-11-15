@@ -22,7 +22,7 @@ public class SortTest
 		randomInitialize(array, rand);
 		printArray(array);
 		System.out.println("Selection Sort...");
-		Sorting.sort(array);
+		SelectionSort.sort(array);
 		printArray(array);
 
 /*
