@@ -46,7 +46,7 @@ public class Recursion {
         else if (n == 0 || n == 1) {
             return n;
         } else {
-            return fibonacci(n - 1) + fibonacci(n - 2); // 계산값을 따로 저장해서 계속 불러오는 것이 연산 횟수를 줄일 수 있음
+            return fibonacci(n - 1) + fibonacci(n - 2); // 계산값을 따로 저장해서 계속 불러오는 것이 연산 횟수를 줄일 수 있음 memoization
         }
     }
 

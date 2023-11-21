@@ -17,23 +17,14 @@ public class SortTest
 		array = new int[size];
 		for(int i = 0; i < array.length; i++)
 			array[i] = i + 1;
-		printArray(array);
+		AllSorts.print(array);
 
 		randomInitialize(array, rand);
-		printArray(array);
-		System.out.println("Selection Sort...");
-		SelectionSort.sort(array);
-		printArray(array);
-
-/*
-		randomInitialize(array, rand);
-		printArray(array);
-		InsertionSort.sort(array);
-		printArray(array);
-		
-		randomInitialize(array, rand);
-		printArray(array);
-*/
+		AllSorts.print(array);
+		System.out.println("Merge Sort...");
+		AllSorts.MergeSort(array);
+		// SelectionSort.sort(array);
+		AllSorts.print(array);
 	}
 
 	public static void randomInitialize(int[] a, Random rand)
@@ -46,15 +37,5 @@ public class SortTest
 			a[i] = a[swap];
 			a[swap] = temp;
 		}
-	}
-
-	public static void printArray(int[] a)
-	{
-		for(int i = 0; i < a.length; i++)
-		{
-			System.out.print("[" + a[i] + "] ");
-//			if((i + 1) % 10 == 0) System.out.println();
-		}
-		System.out.println();
 	}
 }
