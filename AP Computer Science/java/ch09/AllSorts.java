@@ -42,44 +42,62 @@ public class AllSorts {
     }
 
     public static void Merge(int[] arr, int start, int end) {
-        int temp[] = new int[end-start+1];
-        if (start == end) return;
+        int[] temp = new int[end - start + 1]; 
+        if (start == end) return; // 배열 길이 1이면 그냥 리턴
+    
         int mid = (start + end) / 2;
         Merge(arr, start, mid);
-        Merge(arr, mid+1, end);
-        int i = start;
-        int j = mid+1;
-        int k = 0;
-        while (i <= mid && j <= end) {
-            if (arr[i] < arr[j]) {
-                temp[k] = arr[i];
-                i++;
-                k++;
+        Merge(arr, mid + 1, end);
+    
+        int i = start, j = mid + 1, k = 0;
+
+        while (i <= mid || j <= end) {
+            if (i > mid) { 
+                temp[k++] = arr[j++];
+            } else if (j > end) {
+                temp[k++] = arr[i++];
+            } else if (arr[i] < arr[j]) { 
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
             }
-            else {
-                temp[k] = arr[j];
-                k++;
-                j++;
-            }
         }
-        while (i <= mid) {
-            temp[k] = arr[i];
-            k++;
-            i++;
+    
+        for (int x = start; x <= end; x++) {
+            arr[x] = temp[x - start];
         }
-        while (j <= end) {
-            temp[k] = arr[j];
-            k++;
-            j++;
-        }
-        print(temp);
-        for (int l = start; l <= end; l++) { // 값 arr에 대입
-            arr[l] = temp[l-start];
+    }
+    
+    public static void MergeSort(int[] arr) {
+        Merge(arr, 0, arr.length - 1);
+    }
+
+    public static void Quick(int[] arr, int low, int high) {
+        if (low < high) {
+            int mid = divide(arr, low, high);
+            Quick(arr, low, mid - 1);
+            Quick(arr, mid + 1, high);
         }
     }
 
-    public static void MergeSort(int[] arr) {
-        Merge(arr, 0, arr.length - 1);
+    private static int divide(int[] arr, int low, int high) {
+        int pivot = arr[low];
+        int i = (low + 1);
+        for (int j = i; j <= high; j++) {
+            if (arr[j] <= pivot) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+            }
+        }
+        arr[low] = arr[i - 1];
+        arr[i - 1] = pivot;
+        return i - 1;
+    }
+
+    public static void QuickSort(int[] arr) {
+        Quick(arr, 0, arr.length - 1);
     }
 
     public static void print(int[] arr) {
@@ -94,7 +112,7 @@ public class AllSorts {
 
     public static void main(String[] args) {
         int arr[] = { 5, 2, 7, 3, 9, 1, 4, 8, 6 };
-        Insertion(arr);
+        QuickSort(arr);
         print(arr);
 
         /*
@@ -103,6 +121,8 @@ public class AllSorts {
         Record - field의 집합
         Field - character의 집합
         Character
+
+        single/double/더 큰 precision floating point
         */
     }
 }
