@@ -22,7 +22,7 @@ public class SortTest
 		randomInitialize(array, rand);
 		AllSorts.print(array);
 		System.out.println("Merge Sort...");
-		AllSorts.MergeSort(array);
+		AllSorts.MergeSort(array, 'a');
 		// SelectionSort.sort(array);
 		AllSorts.print(array);
 	}
