@@ -83,13 +83,15 @@ public class AllSorts {
     private static int divide(int[] arr, int low, int high) {
         int pivot = arr[low];
         int i = (low + 1);
-        for (int j = i; j <= high; j++) {
+        for (int j = high; j >= i; j--) {
             if (arr[j] <= pivot) {
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
                 i++;
+                j++;
             }
+            print(arr);
         }
         arr[low] = arr[i - 1];
         arr[i - 1] = pivot;
