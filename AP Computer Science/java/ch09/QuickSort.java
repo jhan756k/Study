@@ -4,6 +4,7 @@ public class QuickSort {
   public static void Quick(int[] arr, int order) {
     if (order == 'a') {
       Quick(arr, 0, arr.length - 1);
+      
     } else if (order == 'd') {
       for (int i = 0; i < arr.length; i++) {
         arr[i] = -arr[i];
