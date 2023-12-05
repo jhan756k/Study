@@ -50,24 +50,4 @@ public class AllSorts {
         System.out.print("]");
         System.out.println();
     }
-
-    public static void main(String[] args) {
-        // int large[] = new int[100];
-        // for (int i = 0; i < large.length; i++) {
-        //     large[i] = (int) (Math.random() * 100);
-        // }
-        // print(large);
-        // MergeSort(large, 'a');
-        // print(large);
-
-        /*
-        DB - File의 집합
-        File - record의 집합
-        Record - field의 집합
-        Field - character의 집합
-        Character
-
-        single/double/더 큰 precision floating point
-        */
-    }
 }

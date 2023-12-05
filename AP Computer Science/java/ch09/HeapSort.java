@@ -19,7 +19,13 @@ public class HeapSort {
       insert(heap, a[i - 1]);
     }
     heap[0]--; // 마지막에 하나 추가되는거 다시 빼기
-    return heap;
+
+    int[] ans = new int[a.length];
+    for (int i = 1; i <= a.length; i++) {
+      ans[i-1] = remove(heap);
+    }
+
+    return ans;
   }
 
   private static void insert(int[] heap, int x) {
@@ -35,7 +41,7 @@ public class HeapSort {
     }
   }
 
-  private static int remove(int[] heap) {
+  public static int remove(int[] heap) {
     int x = heap[1];
     heap[1] = heap[heap[0]];
     heap[heap[0]] = 0;
