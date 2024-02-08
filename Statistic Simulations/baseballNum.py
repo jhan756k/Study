@@ -1,4 +1,4 @@
-word = "sex"
+word = "strike"
 word = list(word)
 print("length of word is", len(word))
 print()
