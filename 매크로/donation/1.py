@@ -36,6 +36,7 @@ toner = '/html/body/div[7]/div[4]/div/div[2]/table[5]/tbody/tr[233]/td[4]/form/i
 
 while True:
   if not about_time():
+    print("Not yet time")
     time.sleep(1)
     continue
   else:
@@ -46,9 +47,11 @@ while True:
   driver.get("https://kmlaonline.net/util/donation-book")
 
   if not check_xpath(test):
+    print("Test not found")
     continue
 
   else:
     driver.find_element(By.XPATH, englang).click()
+    print("done")
     break
   
