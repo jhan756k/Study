@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "ch00/chnutil.jar"
+        "ch00/chnutil.jar",
+        "FoodTest\\school-api-3.0.3.jar"
     ]
 }
