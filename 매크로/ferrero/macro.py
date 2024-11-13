@@ -13,7 +13,7 @@ driver = webdriver.Chrome(options=options)
 t = 500
 
 for _ in range(t):
-  driver.get("https://www.ferrerorocher.com/kr/ko/xp/ferrero-golden-cheer/card_info.asp")
+  driver.get("https://www.ferrero-golden-cheer.co.kr/kr/ko/xp/ferrero-golden-cheer/card_info.asp")
   driver.maximize_window()
   driver.execute_script("document.body.style.zoom='50%'")
 
@@ -29,6 +29,5 @@ for _ in range(t):
   WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div/div[1]'))).send_keys(tmp)
   WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/div/button'))).click()
   print(_+1, "th complete! - ", tmp)
-  time.sleep(random.randrange(0, 2))
   
-driver.quit
+driver.quit 
