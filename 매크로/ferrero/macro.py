@@ -8,7 +8,7 @@ msg = ["끝까지 포기하지 않고 달려가자!", "오늘의 노력이 내�
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches",["ignore-certificate-errors"])
-options.add_argument('headless')
+# options.add_argument('headless')
 driver = webdriver.Chrome(options=options)
 t = 500
 
@@ -20,9 +20,9 @@ for _ in range(t):
   driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/form/input[3]').send_keys('민족사관고등학교')
   driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/form/button').click()
 
-  time.sleep(1)
+  time.sleep(1.5)
   WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[4]/div/div/div/div/div[2]/table/tbody/tr/td[1]/a'))).click()
-  time.sleep(1)
+  time.sleep(1.5)
 
   WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, '/html/body/div[1]/div/div/div[4]/button'))).click()
   tmp = msg[random.randrange(0, len(msg))]
