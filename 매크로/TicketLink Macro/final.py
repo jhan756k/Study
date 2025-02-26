@@ -6,19 +6,12 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 import json
 
-game_name = "광주FC vs 안양"  # 인천vs수원
-game_link = "https://www.ticketlink.co.kr/sports/138/79"  # change to 77
-seat_type = "원정"  # 원정석
-open_time = "2025-02-24 10:59:59"  # 2025-02-25 13:59:59
-areaname = ["N-A", "N3"] #N-3 N3
+game_name = "인천vs수원"
+game_link = "https://www.ticketlink.co.kr/sports/138/77"
+seat_type = "원정"
+open_time = "2025-02-25 13:59:59"
+areaname = ["N-4", "N4"]
 seat_num = 2
-
-# 쿠키 재설정하기
-# 쿠키 재설정하기
-# 쿠키 재설정하기
-# 쿠키 재설정하기
-# 쿠키 재설정하기
-
 
 def setup_driver():
     options = webdriver.ChromeOptions()
@@ -48,7 +41,7 @@ with open("cookies.json", "r") as file:
             print(f"Failed to add cookie: {cookie}\nError: {e}")
 driver.refresh()
 
-target_time = time.mktime(time.strptime(open_time, "%Y-%m-%d %H:%M:%S"))
+target_time = time.mktime(time.strptime(open_time, "%Y-%m-%d %H:%M:%S")) + 0.8
 
 while True:
     current_time = time.time()
@@ -68,10 +61,6 @@ while True:
                 print(f"Error while checking for ticket button: {e}")
                 break
         break
-
-    elif target_time - current_time > 20:
-        time.sleep(0.001)
-        continue
 
     time.sleep(0.001)
 
