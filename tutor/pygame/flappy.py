@@ -1,105 +1,168 @@
 import pygame
+import sys
 import random
 
 pygame.init()
 
-WIDTH = 400
-HEIGHT = 600
-
+# =====================
+# 화면 설정
+# =====================
+WIDTH, HEIGHT = 400, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("bird game")
-
+pygame.display.set_caption("Flappy Bird")
 clock = pygame.time.Clock()
 
+# 색상
 WHITE = (255, 255, 255)
-BIRD_COLOR = (255, 255, 0)
-PIPE_COLOR = (0, 200, 0)
-BG_COLOR = (30, 30, 30)
+YELLOW = (255, 255, 0)
+GREEN = (0, 200, 0)
+BG = (30, 30, 30)
 
-bird = pygame.Rect(50, HEIGHT//2 - 15, 30, 30)
-bird_speed = 0
-gravity = 0.35
-jump_strength = -6
-game_active = True
-
-pipe_width = 60
-pipe_height = 400
-pipe_gap = 150
-pipe_speed = 3
-pipes = []
-score = 0
 font = pygame.font.SysFont(None, 50)
 
-def create_pipe():
-    center = random.randint(200, 450)
+# =====================
+# Bird 클래스
+# =====================
+class Bird:
+    def __init__(self):
+        self.rect = pygame.Rect(50, HEIGHT // 2, 30, 30)
+        self.vel = 0
+        self.gravity = 0.35
+        self.jump_power = -6
 
-    top_pipe = pygame.Rect(WIDTH, center - pipe_height - pipe_gap, pipe_width, pipe_height)
-    bottom_pipe = pygame.Rect(WIDTH, center, pipe_width, pipe_height)
+    def jump(self):
+        self.vel = self.jump_power
 
-    top_pipe.scored = False
-    bottom_pipe.scored = False
-    return top_pipe, bottom_pipe
+    def update(self):
+        self.vel += self.gravity
+        self.rect.y += self.vel
 
-pipes.extend(create_pipe())
- 
-running = True
-while running:
-    fps = clock.tick(60)
-   
+    def draw(self):
+        pygame.draw.rect(screen, YELLOW, self.rect)
+
+    def out_of_screen(self):
+        return self.rect.top <= 0 or self.rect.bottom >= HEIGHT
+
+    def reset(self):
+        self.rect.x = 50
+        self.rect.y = HEIGHT // 2
+        self.vel = 0
+
+
+# =====================
+# Pipe 클래스
+# =====================
+PIPE_WIDTH = 60
+PIPE_GAP = 150
+PIPE_SPEED = 3
+
+class Pipe:
+    def __init__(self):
+        center = random.randint(200, 450)
+
+        self.top = pygame.Rect(
+            WIDTH,
+            center - PIPE_GAP - 400,
+            PIPE_WIDTH,
+            400
+        )
+        self.bottom = pygame.Rect(
+            WIDTH,
+            center,
+            PIPE_WIDTH,
+            400
+        )
+
+        self.scored = False
+
+    def move(self):
+        self.top.x -= PIPE_SPEED
+        self.bottom.x -= PIPE_SPEED
+
+    def draw(self):
+        pygame.draw.rect(screen, GREEN, self.top)
+        pygame.draw.rect(screen, GREEN, self.bottom)
+
+    def collide(self, bird):
+        return (
+            bird.rect.colliderect(self.top)
+            or bird.rect.colliderect(self.bottom)
+        )
+
+    def off_screen(self):
+        return self.top.right < 0
+
+    def check_score(self, bird):
+        global score
+        if not self.scored and self.top.right < bird.rect.left:
+            score += 1
+            self.scored = True
+
+
+# =====================
+# 게임 변수
+# =====================
+bird = Bird()
+pipes = [Pipe()]
+score = 0
+game_active = True
+
+# =====================
+# 게임 루프
+# =====================
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
             pygame.quit()
+            sys.exit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and game_active:
-                bird_speed = jump_strength
+                bird.jump()
+
             if event.key == pygame.K_SPACE and not game_active:
-                bird.x = 50 
-                bird.y = HEIGHT//2 - 15
-                bird_speed = 0
-                pipes.clear()
-                pipes.extend(create_pipe())
+                bird.reset()
+                pipes = [Pipe()]
                 score = 0
                 game_active = True
-        
 
-    screen.fill(BG_COLOR)
+    screen.fill(BG)
 
     if game_active:
-        bird_speed += gravity
-        bird.y += bird_speed
-        pygame.draw.rect(screen, BIRD_COLOR, bird)
-      
-        if pipes[-1].x < 150:
-            pipes.extend(create_pipe())
+        # 새 업데이트
+        bird.update()
+        bird.draw()
 
-        for pipe in list(pipes):
-            pipe.x -= pipe_speed
-            pygame.draw.rect(screen,PIPE_COLOR,pipe)
+        # 파이프 생성
+        if pipes[-1].top.x < 200:
+            pipes.append(Pipe())
 
-            if pipe.x < -pipe_width:
-                pipes.remove(pipe) 
+        # 파이프 처리
+        for pipe in pipes[:]:
+            pipe.move()
+            pipe.draw()
 
-        for pipe in pipes:
-            if bird.colliderect(pipe):
+            if pipe.collide(bird):
                 game_active = False
 
-        if bird.y <= bird.height or bird.y >= HEIGHT:
-            game_active = False
-            
-        score_text = font.render(str(score), True, WHITE)
-        screen.blit(score_text, (WIDTH//2 - 10, 20))
+            pipe.check_score(bird)
 
-        for pipe in pipes:
-            if pipe.x + pipe_width < bird.x and not pipe.scored:
-                score += 0.5
-                pipe.scored = True
+            if pipe.off_screen():
+                pipes.remove(pipe)
+
+        # 화면 충돌
+        if bird.out_of_screen():
+            game_active = False
+
+        # 점수 표시
+        score_text = font.render(str(score), True, WHITE)
+        screen.blit(score_text, (WIDTH // 2 - 10, 20))
+
     else:
-        game_over_text = font.render("GAME OVER", True, WHITE)
-        restart_text = font.render("Press SPACE",True, WHITE)
-        screen.blit(game_over_text, (WIDTH//2 - 100, HEIGHT//2 - 50))
-        screen.blit(restart_text, (WIDTH//2 - 100, HEIGHT//2 + 10))
+        over = font.render("Game Over", True, WHITE)
+        restart = font.render("Press SPACE", True, WHITE)
+        screen.blit(over, (WIDTH // 2 - 100, HEIGHT // 2 - 40))
+        screen.blit(restart, (WIDTH // 2 - 120, HEIGHT // 2 + 10))
 
     pygame.display.update()
-        
+    clock.tick(60)
